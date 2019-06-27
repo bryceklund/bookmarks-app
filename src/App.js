@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+<<<<<<< HEAD
+=======
+import BookmarksContext from './BookmarksContext';
+>>>>>>> context-version
 import AddBookmark from './AddBookmark/AddBookmark';
 import BookmarkList from './BookmarkList/BookmarkList';
 import Nav from './Nav/Nav';
 import config from './config';
+import Rating from './Rating/Rating';
 import './App.css';
 
 const bookmarks = [
@@ -32,20 +37,37 @@ const bookmarks = [
 
 class App extends Component {
   state = {
+<<<<<<< HEAD
     bookmarks,
+=======
+    bookmarks: [],
+>>>>>>> context-version
     error: null,
   };
 
   setBookmarks = bookmarks => {
     this.setState({
       bookmarks,
+<<<<<<< HEAD
       error: null
+=======
+      error: null,
+>>>>>>> context-version
     })
   }
 
   addBookmark = bookmark => {
     this.setState({
       bookmarks: [ ...this.state.bookmarks, bookmark ],
+    })
+  }
+
+  deleteBookmark = bookmarkId => {
+    const newBookmarks = this.state.bookmarks.filter(bm =>
+      bm.id !== bookmarkId
+      )
+    this.setState({
+      bookmarks: newBookmarks
     })
   }
 
@@ -68,6 +90,7 @@ class App extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     const { bookmarks } = this.state
     return (
       <main className='App'>
@@ -93,6 +116,31 @@ class App extends Component {
               />}
           />
         </div>
+=======
+    const contextValue = {
+      bookmarks: this.state.bookmarks,
+      addBookmark: this.addBookmark,
+      deleteBoomark: this.deleteBookmark
+    }
+    return (
+      <main className='App'>
+        <h1>Bookmarks!</h1>
+        <BookmarksContext.Provider value={contextValue}>
+          <Rating value={4} />
+          <Nav />
+          <div className='content' aria-live='polite'>
+            <Route
+              path='/add-bookmark'
+              component={AddBookmark}
+            />
+            <Route
+              exact
+              path='/'
+              component={BookmarkList}
+            />
+          </div>
+        </BookmarksContext.Provider>
+>>>>>>> context-version
       </main>
     );
   }
